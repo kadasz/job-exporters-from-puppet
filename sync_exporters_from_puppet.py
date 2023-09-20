@@ -18,3 +18,15 @@ def check_targets():
         ]
   except Exception as e:
     print(e)
+
+def check_class():
+  try:
+    p = subprocess.Popen([
+      "curl", "-s", "--user", "admin:passwd123", "-H", "Content-Type:application/json", "-H", "Accept:application/json", "-k", "https://foreman.domain.com/api/v2/fact_values?per_page=9999\&search=name=is_node_exporter" ],
+    stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+    stdout, stderr = p.communicate()
+    out = json.loads(stdout.decode("utf-8"))
+    return out.get('subtotal')
+  except Exception as e:
+    print(e)
+
