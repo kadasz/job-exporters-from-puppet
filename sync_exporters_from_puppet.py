@@ -48,3 +48,23 @@ def save_node(node, env, system):
     with open(f'/etc/prometheus/conf.d/nodes/{node}.json', 'w', encoding='utf-8') as f:
         json.dump(tmpl, f, ensure_ascii=False, indent=4)
     os.chown(f'/etc/prometheus/conf.d/nodes/{node}.json', 1009, 1009)
+
+
+def save_apache(node, env, system):
+    tmpl = [
+        {
+          "labels": {
+            "job": "apache",
+            "group": "tst",
+            "env": f"{env}",
+            "system": f"{system}"
+
+          },
+          "targets": [
+            f"{node}:9144"
+          ]
+        }
+    ]
+    with open(f'/etc/prometheus/conf.d/apache/{node}.json', 'w', encoding='utf-8') as f:
+        json.dump(tmpl, f, ensure_ascii=False, indent=4)
+    os.chown(f'/etc/prometheus/conf.d/apache/{node}.json', 1009, 1009)
