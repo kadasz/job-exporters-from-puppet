@@ -30,3 +30,21 @@ def check_class():
   except Exception as e:
     print(e)
 
+def save_node(node, env, system):
+    tmpl = [
+        {
+          "labels": {
+            "job": "node",
+            "group": "tst",
+            "env": f"{env}",
+            "system": f"{system}"
+
+          },
+          "targets": [
+            f"{node}:9100"
+          ]
+        }
+    ]
+    with open(f'/etc/prometheus/conf.d/nodes/{node}.json', 'w', encoding='utf-8') as f:
+        json.dump(tmpl, f, ensure_ascii=False, indent=4)
+    os.chown(f'/etc/prometheus/conf.d/nodes/{node}.json', 1009, 1009)
