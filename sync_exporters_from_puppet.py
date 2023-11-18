@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import click
 import subprocess
 
 VERSION = '0.0.1a'
@@ -68,3 +69,16 @@ def save_apache(node, env, system):
     with open(f'/etc/prometheus/conf.d/apache/{node}.json', 'w', encoding='utf-8') as f:
         json.dump(tmpl, f, ensure_ascii=False, indent=4)
     os.chown(f'/etc/prometheus/conf.d/apache/{node}.json', 1009, 1009)
+
+
+
+@click.group()
+@click.version_option(version=VERSION)
+@click.pass_context
+def main(ctx):
+    '''
+        Simple tool to configure Prometheus exporters
+    '''
+    if ctx.obj is None:
+        ctx.obj = {}
+
