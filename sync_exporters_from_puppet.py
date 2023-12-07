@@ -83,3 +83,14 @@ def main(ctx):
     if ctx.obj is None:
         ctx.obj = {}
 
+
+@click.command('node')
+@click.option('--srv', required=True, help='Type hostname')
+@click.option('--env', required=True, help='Type environment')
+@click.option('--system', required=True, help='Enter the assigned system')
+@click.pass_context
+def node(ctx, srv, env, system):
+    '''
+        Module for adding node exporter configuration
+    '''
+    save_node(srv, env, system)
