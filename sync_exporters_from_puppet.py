@@ -91,7 +91,7 @@ def main(ctx):
 @click.pass_context
 def node(ctx, srv, env, system):
     '''
-        Module for adding node exporter configuration
+       Add node exporter configuration
     '''
     save_node(srv, env, system)
 
@@ -103,7 +103,7 @@ def node(ctx, srv, env, system):
 @click.pass_context
 def apache(ctx, srv, env, system):
     '''
-         Module for adding apache exporter configuration
+         Add apache exporter configuration
     '''
     save_apache(srv, env, system)
 
@@ -111,7 +111,7 @@ def apache(ctx, srv, env, system):
 @click.pass_context
 def check(ctx):
     '''
-        Module for verifying node exporter files with  puppet's class prometheus::node::exporter
+        Verify node exporter files with puppet prometheus::node::exporter
     '''
     click.echo(f'Number of instances with jobs node on Prometheus - {len(check_targets())}')
     click.echo(f'Number of hosts with the Puppet prometheus::node::exporter - {check_class()}')
@@ -120,7 +120,7 @@ def check(ctx):
 @click.pass_context
 def sync(ctx):
     '''
-        Module for syncing configuration files between Prometheus <-> Puppet
+        Sync configuration files between Prometheus <-> Puppet
     '''
     prom = len(check_targets())
     pupp = check_class()
