@@ -116,3 +116,24 @@ def check(ctx):
     click.echo(f'Number of instances with jobs node on Prometheus - {len(check_targets())}')
     click.echo(f'Number of hosts with the Puppet prometheus::node::exporter - {check_class()}')
 
+@click.command('sync')
+@click.pass_context
+def sync(ctx):
+    '''
+        Module for syncing configuration files between Prometheus <-> Puppet
+    '''
+    prom = len(check_targets())
+    pupp = check_class()
+    if prom == pupp:
+      click.echo(f'Nothing to do, synchronization consistent... {list(set([prom, pupp]))}')
+    else:
+      click.echo(f'Synchronization inconsistent, something to do...')
+
+main.add_command(sync)
+main.add_command(check)
+main.add_command(node)
+main.add_command(apache)
+
+if __name__ == '__main__':
+    main()
+
